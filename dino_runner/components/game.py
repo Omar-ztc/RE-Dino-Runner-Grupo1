@@ -37,7 +37,7 @@ class Game:
     def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
-        self.obstacle_manager.update(self.game_speed)
+        self.obstacle_manager.update(self)
 
 
     def draw(self):
@@ -46,7 +46,7 @@ class Game:
         
         self.draw_background()
         self.player.draw(self.screen)
-        self.obstacle_manager.draw(self.screen)
+        self.obstacle_manager.draw(self)
         pygame.display.update()
         pygame.display.flip()
 
