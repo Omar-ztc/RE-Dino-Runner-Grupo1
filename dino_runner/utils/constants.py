@@ -72,10 +72,12 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 
 ENTRETENIMIENTO = [
-    pygame.image.load(os.path.join(IMG_DIR, "Other/ronaldo.png")),
-    pygame.image.load(os.path.join(IMG_DIR, "Other/dinoENbici.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/Cloud.png")),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/dinoENbicisi.png")),
     pygame.image.load(os.path.join(IMG_DIR, 'Other/Cloud.png')),
     pygame.image.load(os.path.join(IMG_DIR, 'Other/Cloud.png'))
 ]
 
 FONT_STYLE = "freesansbold.ttf"
+
+RESET = [pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))]

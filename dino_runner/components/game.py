@@ -2,8 +2,8 @@ import pygame
 import dino_runner
 from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.components.obstacles.obstacles_manager import ObstacleManager
-from dino_runner.components.nubes.cloud_manager import EntretenimientoManager      #implementacion
-from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,FONT_STYLE
+from dino_runner.components.nubes.cloud_manager import EntretenimientoManager      
+from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,FONT_STYLE,RESET
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.score import Score
 
@@ -22,7 +22,7 @@ class Game:
         self.y_pos_bg = 380
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
-        self.entretenimiento_manager = EntretenimientoManager()        ##implementacion
+        self.entretenimiento_manager = EntretenimientoManager()       
         self.number_game= 0
         self.score = Score()
 
@@ -66,11 +66,13 @@ class Game:
     def draw(self):
         self.clock.tick(FPS)
         self.screen.fill((0, 255, 0))
-        
+        if self.score.score >=300:       #implementacion
+            self.screen.fill((255, 255, 255))
+
         self.draw_background()
         self.player.draw(self.screen)
         self.obstacle_manager.draw(self)
-        self.entretenimiento_manager.draw(self)      ###implementacion
+        self.entretenimiento_manager.draw(self)      
         self.score.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
@@ -86,7 +88,7 @@ class Game:
     
     def show_menu(self):
         #pintar la ventana
-        self.screen.fill((0, 255, 0))
+        self.screen.fill((255, 255, 255))
         half_screen_height = SCREEN_HEIGHT //2
         half_screen_width = SCREEN_WIDTH //2
 
@@ -108,6 +110,7 @@ class Game:
           text_rect2.center = (half_screen_width+117, half_screen_height+100)
           self.screen.blit(text_component,(text_rect))
           self.screen.blit(text_component2,(text_rect2))
+          self.screen.blit(RESET[0],(half_screen_width-40,half_screen_height +140 ))
         #mostrar mensaje de volver a jugar
         #mostrar un icono
         self.screen.blit(RUNNING[0], (half_screen_width-40, half_screen_height - 140 ))
