@@ -81,3 +81,10 @@ ENTRETENIMIENTO = [
 FONT_STYLE = "freesansbold.ttf"
 
 RESET = [pygame.image.load(os.path.join(IMG_DIR, "Other/Reset.png"))]
+
+DINOTRISTE = [
+    pygame.image.load(os.path.join(IMG_DIR, 'Other/dinoiniciotriste.jpeg')),
+    pygame.image.load(os.path.join(IMG_DIR, "Other/Dinobici.jpeg")),
+]
+
+SHIELD_TYPE = "shield"

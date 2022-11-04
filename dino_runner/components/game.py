@@ -3,7 +3,7 @@ import dino_runner
 from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.components.obstacles.obstacles_manager import ObstacleManager
 from dino_runner.components.nubes.cloud_manager import EntretenimientoManager      
-from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,FONT_STYLE,RESET
+from dino_runner.utils.constants import BG, ICON, RUNNING, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS,FONT_STYLE,RESET,DINOTRISTE
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.score import Score
 
@@ -25,6 +25,7 @@ class Game:
         self.entretenimiento_manager = EntretenimientoManager()       
         self.number_game= 0
         self.score = Score()
+
 
 
     def execute(self):
@@ -65,9 +66,11 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((0, 255, 0))
-        if self.score.score >=300:       #implementacion
-            self.screen.fill((255, 255, 255))
+        self.screen.fill((255,255,255))
+        if self.score.score >=400:       #implementacion
+            self.screen.fill((128, 128, 128))
+        if self.score.score >= 1000:
+            self.screen.fill((94, 54, 30))
 
         self.draw_background()
         self.player.draw(self.screen)
@@ -88,7 +91,7 @@ class Game:
     
     def show_menu(self):
         #pintar la ventana
-        self.screen.fill((255, 255, 255))
+        self.screen.fill((128, 128, 128))
         half_screen_height = SCREEN_HEIGHT //2
         half_screen_width = SCREEN_WIDTH //2
 
@@ -97,23 +100,33 @@ class Game:
           font = pygame.font.Font(FONT_STYLE, 30)
           text_component = font.render("Press any key to play", True, (0,0,0) )
           text_rect= text_component.get_rect()
-          text_rect.center = (half_screen_width, half_screen_height)
+          text_rect.center = (half_screen_width, half_screen_height + 180)
           self.screen.blit(text_component,(text_rect))
+          self.screen.blit(DINOTRISTE[0], (half_screen_width-200, half_screen_height - 270 ))
         else:
           font = pygame.font.Font(FONT_STYLE, 30)
           font2 = pygame.font.Font(FONT_STYLE, 24)
+          
           text_component = font.render("Moriste!!! presione tecla para volver a jugar", True, (0,0,0) )
-          text_component2 = font2.render(("Your number death count is : "+ str(self.number_game)), True, (0,0,0) )
+          text_component2 = font2.render((" # death count = "+ str(self.number_game)), True, (0,0,0) )
+          text_component3 = font2.render(("score = "+ str(self.score.score)), True, (0,0,0) )
+          text_component4 = font2.render(("highest score = "+ str(self.score.highest_score)), True, (0,0,0) )
           text_rect= text_component.get_rect()
-          text_rect.center = (half_screen_width, half_screen_height)
+          text_rect.center = (half_screen_width, half_screen_height+80)
           text_rect2= text_component.get_rect()
-          text_rect2.center = (half_screen_width+117, half_screen_height+100)
+          text_rect2.center = (half_screen_width+210, half_screen_height+250)
+          text_rect3= text_component.get_rect()
+          text_rect3.center = (half_screen_width+600, half_screen_height+250)
+          text_rect4= text_component.get_rect()
+          text_rect4.center = (1150,30)
           self.screen.blit(text_component,(text_rect))
           self.screen.blit(text_component2,(text_rect2))
-          self.screen.blit(RESET[0],(half_screen_width-40,half_screen_height +140 ))
+          self.screen.blit(text_component3,(text_rect3))
+          self.screen.blit(text_component4,(text_rect4))
+          self.screen.blit(RESET[0],(half_screen_width-40,half_screen_height +120 ))
+          self.screen.blit(DINOTRISTE[1], (half_screen_width-150, half_screen_height - 275 ))
         #mostrar mensaje de volver a jugar
-        #mostrar un icono
-        self.screen.blit(RUNNING[0], (half_screen_width-40, half_screen_height - 140 ))
+
         #actualizar evento
         pygame.display.update()
         #escuchar evento

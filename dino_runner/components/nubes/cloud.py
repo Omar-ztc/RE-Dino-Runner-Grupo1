@@ -8,6 +8,6 @@ class Cloud(Cloud_and_entretenimiento):
         super().__init__(images, type)
         self.rect.y = 80
 
-    
+
 
 
