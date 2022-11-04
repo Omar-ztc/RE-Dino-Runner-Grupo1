@@ -1,5 +1,6 @@
 import pygame
 import dino_runner
+
 from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.components.obstacles.obstacles_manager import ObstacleManager
 from dino_runner.components.nubes.cloud_manager import EntretenimientoManager      
@@ -9,6 +10,7 @@ from dino_runner.components.score import Score
 from dino_runner.components.powerups.power_up_manager import PowerUpManager
 from dino_runner.components.powerups.shield import Shield
 from dino_runner.components.extrasgame.extra_manager import ExtraManager
+
 
 class Game:
     def __init__(self):
@@ -32,6 +34,7 @@ class Game:
         self.shields = [Shield()]
         self.extra_up_manager = ExtraManager()
         
+        
 
 
     def execute(self):
@@ -41,12 +44,14 @@ class Game:
             if not self.playing:
                 self.show_menu()
 
+
         pygame.quit()
 
 
     def run(self):
         # Game loop: events - update - draw
         self.playing = True
+
         self.obstacle_manager.reset_obstacle()
         self.number_game += 1
         self.deaths +=1
@@ -63,6 +68,10 @@ class Game:
             self.events()
             self.update()
             self.draw()
+
+
+ 
+
 
 
     def events(self):
@@ -89,12 +98,13 @@ class Game:
     
 
     def draw(self):
+  
         self.clock.tick(FPS)
         self.screen.fill((255,255,255))
         if self.score.score >=400:       #implementacion
-            self.screen.fill((128, 128, 128))
+            self.screen.fill((247, 191, 190))
         if self.score.score >= 1000:
-            self.screen.fill((94, 54, 30))
+            self.screen.fill((30, 190, 255))
 
         self.draw_background()
         self.player.draw(self.screen)
@@ -126,20 +136,25 @@ class Game:
         half_screen_height = SCREEN_HEIGHT //2
         half_screen_width = SCREEN_WIDTH //2
 
-        #mostrar mensaje de bienvenida
+   
         if self.number_game <1:
+
           self.screen.fill((255,255,255))
           font = pygame.font.Font(FONT_STYLE, 30)
+
           text_component = font.render("Press any key to play", True, (0,0,0) )
           text_rect= text_component.get_rect()
           text_rect.center = (half_screen_width, half_screen_height + 180)
           self.screen.blit(text_component,(text_rect))
           self.screen.blit(DINOTRISTE[0], (half_screen_width-200, half_screen_height - 270 ))
+
+
+
         else:
           font = pygame.font.Font(FONT_STYLE, 30)
           font2 = pygame.font.Font(FONT_STYLE, 24)
           self.screen.fill((0, 0, 0))
-          text_component = font.render("Moriste!!! presione tecla para volver a jugar", True, (255,255,255) )
+          text_component = font.render("Return to game", True, (255,255,255) )
           text_component2 = font2.render((" # death count = "+ str(self.number_game)), True, (255,255,255) )
           text_component3 = font2.render(("score = "+ str(self.score.score)), True, (255,255,255) )
           text_component4 = font2.render(("highest score = "+ str(self.score.highest_score)), True, (255,255,255) )
@@ -147,11 +162,11 @@ class Game:
           text_rect= text_component.get_rect()
           text_rect.center = (half_screen_width, half_screen_height+80)
           text_rect2= text_component.get_rect()
-          text_rect2.center = (half_screen_width+210, half_screen_height+250)
+          text_rect2.center = (half_screen_width, half_screen_height+250)
           text_rect3= text_component.get_rect()
-          text_rect3.center = (half_screen_width+600, half_screen_height+250)
+          text_rect3.center = (half_screen_width+400, half_screen_height+250)
           text_rect4= text_component.get_rect()
-          text_rect4.center = (1150,30)
+          text_rect4.center = (940,30)
           text_rect5= text_component5.get_rect()
           text_rect5.center = (half_screen_width-360, half_screen_height+250)
           self.screen.blit(text_component,(text_rect))
@@ -196,4 +211,7 @@ class Game:
         elif self.extra_up_manager.hearts < 0:
             self.extra_up_manager.hearts = 0
 
+
+
+        
 

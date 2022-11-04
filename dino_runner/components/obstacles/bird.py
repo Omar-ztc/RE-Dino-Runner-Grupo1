@@ -3,6 +3,9 @@ from dino_runner.utils.constants import BIRD
 import random
 #revisar esta fallamdo
 class BirdFly(Obstacle):
+
+
+
     def __init__(self, images):
         self.type = 0
         super().__init__(images, self.type)
@@ -15,6 +18,14 @@ class BirdFly(Obstacle):
         self.type = 0 if self.index <5 else 1
         screen.blit(self.images[self.type], self.rect)    
         self.index += 1
+    
+
+
+
+
+
+
+
 
     
 

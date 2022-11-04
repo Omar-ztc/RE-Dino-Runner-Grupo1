@@ -15,7 +15,7 @@ class ExtraManager:
     def generate_extras(self, score):
         if len(self.extra) == 0 and self.appears_extra == score.score:
             self.extra.append(Heart())
-            self.appears_extra += randint(200,300)
+            self.appears_extra += randint(600,700)
 
 
 

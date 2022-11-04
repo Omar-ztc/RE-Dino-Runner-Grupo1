@@ -91,3 +91,4 @@ class Dinosaur(Sprite):
         self.has_power_up = True
         self.power_up_time_up = start_time + (duration * 1000)
         self.type = type
+        

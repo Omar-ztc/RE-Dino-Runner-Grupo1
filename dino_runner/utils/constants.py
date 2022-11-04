@@ -90,3 +90,4 @@ DINOTRISTE = [
 SHIELD_TYPE = "shield"
 HAMMER_TYPE = "hammer"
 HEART_TYPE = "life"
+
