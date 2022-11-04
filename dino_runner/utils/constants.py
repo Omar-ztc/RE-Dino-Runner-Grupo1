@@ -88,3 +88,4 @@ DINOTRISTE = [
 ]
 
 SHIELD_TYPE = "shield"
+HAMMER_TYPE = "hammer"

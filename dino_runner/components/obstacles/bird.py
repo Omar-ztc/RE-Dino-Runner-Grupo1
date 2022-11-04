@@ -2,7 +2,7 @@ from .obstacle_game import Obstacle
 from dino_runner.utils.constants import BIRD
 import random
 #revisar esta fallamdo
-class CactusLarge(Obstacle):
+class BirdFly(Obstacle):
     def __init__(self, images):
         self.type = 0
         super().__init__(images, self.type)

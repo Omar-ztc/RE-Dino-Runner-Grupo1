@@ -14,6 +14,9 @@ class Score:
         
         if self.score % 100 == 0:
             game.game_speed += 2
+            if self.score % 1000 == 0:
+               game.game_speed = 40
+        
         
         if self.highest_score == self.score:
             self.highest_score +=1
