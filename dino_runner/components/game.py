@@ -8,6 +8,7 @@ from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.score import Score
 from dino_runner.components.powerups.power_up_manager import PowerUpManager
 from dino_runner.components.powerups.shield import Shield
+from dino_runner.components.extrasgame.extra_manager import ExtraManager
 
 class Game:
     def __init__(self):
@@ -26,9 +27,11 @@ class Game:
         self.entretenimiento_manager = EntretenimientoManager()   
         self.power_ups_manager = PowerUpManager()    
         self.number_game= 0
+        self.deaths = 0
         self.score = Score()
         self.shields = [Shield()]
-
+        self.extra_up_manager = ExtraManager()
+        
 
 
     def execute(self):
@@ -46,8 +49,14 @@ class Game:
         self.playing = True
         self.obstacle_manager.reset_obstacle()
         self.number_game += 1
-        self.score.score = 0
-        self.game_speed = 20 
+        self.deaths +=1
+
+        if self.extra_up_manager.hearts >= self.deaths:
+            self.score.score
+        else:
+            self.score.score = 0
+
+        self.control_bugs()
         
         self.power_ups_manager.reser_power_ups()
         while self.playing:
@@ -73,11 +82,11 @@ class Game:
         else :
             self.obstacle_manager.update(self)
 
-
+        self.extra_up_manager.update(self.game_speed,self.player,self.score)
         self.entretenimiento_manager.update(self)  ###implementacion      cambiar a entretenimiento
         self.score.update(self)
         self.power_ups_manager.update(self.game_speed, self.player,self.score)
-
+    
 
     def draw(self):
         self.clock.tick(FPS)
@@ -94,6 +103,7 @@ class Game:
         self.score.draw(self.screen)
         self.power_ups_manager.draw(self.screen)
         self.draw_power_up_active()
+        self.extra_up_manager.draw(self.screen)
 
         pygame.display.update()
         pygame.display.flip()
@@ -109,7 +119,10 @@ class Game:
     
     def show_menu(self):
         #pintar la ventana
-        #self.screen.fill((128, 128, 128))
+        heart_life_count = self.extra_up_manager.hearts
+        if heart_life_count < 0:
+            heart_life_count = 0
+
         half_screen_height = SCREEN_HEIGHT //2
         half_screen_width = SCREEN_WIDTH //2
 
@@ -130,6 +143,7 @@ class Game:
           text_component2 = font2.render((" # death count = "+ str(self.number_game)), True, (255,255,255) )
           text_component3 = font2.render(("score = "+ str(self.score.score)), True, (255,255,255) )
           text_component4 = font2.render(("highest score = "+ str(self.score.highest_score)), True, (255,255,255) )
+          text_component5 = font2.render(("# Hearts life = "+ str(heart_life_count)), True, (255,255,255) )
           text_rect= text_component.get_rect()
           text_rect.center = (half_screen_width, half_screen_height+80)
           text_rect2= text_component.get_rect()
@@ -138,10 +152,13 @@ class Game:
           text_rect3.center = (half_screen_width+600, half_screen_height+250)
           text_rect4= text_component.get_rect()
           text_rect4.center = (1150,30)
+          text_rect5= text_component5.get_rect()
+          text_rect5.center = (half_screen_width-360, half_screen_height+250)
           self.screen.blit(text_component,(text_rect))
           self.screen.blit(text_component2,(text_rect2))
           self.screen.blit(text_component3,(text_rect3))
           self.screen.blit(text_component4,(text_rect4))
+          self.screen.blit(text_component5,(text_rect5))
           self.screen.blit(RESET[0],(half_screen_width-40,half_screen_height +120 ))
           self.screen.blit(DINOTRISTE[1], (half_screen_width-150, half_screen_height - 275 ))
         #mostrar mensaje de volver a jugar
@@ -170,3 +187,13 @@ class Game:
             else:
                 self.player.has_power_up = False
                 self.player.type = DEFAULT_TYPE
+
+    def control_bugs(self):
+        self.game_speed = 20 
+        self.deaths -=1
+        if self.extra_up_manager.hearts > 0:
+            self.extra_up_manager.hearts -= 1
+        elif self.extra_up_manager.hearts < 0:
+            self.extra_up_manager.hearts = 0
+
+

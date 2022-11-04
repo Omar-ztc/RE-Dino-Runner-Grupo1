@@ -2,10 +2,14 @@ from random import randint
 from dino_runner.components.powerups.hammer import Hameer
 import pygame
 from dino_runner.components.powerups.shield import Shield
+from dino_runner.components.dinosaur import Dinosaur
+from dino_runner.utils.constants import SHIELD_TYPE, HAMMER_TYPE, DEFAULT_TYPE
+
 class PowerUpManager:
     def __init__(self):
         self.power_ups= []
         self.when_appears = 0
+        self.power_type = Dinosaur()
         
 
     def generate_powerups(self, score):
@@ -27,6 +31,7 @@ class PowerUpManager:
                 power_up.start_time = pygame.time.get_ticks()
                 player.on_power_up(power_up.start_time,  power_up.duration, power_up.type)
                 self.power_ups.remove(power_up)
+               
                 
 
                 

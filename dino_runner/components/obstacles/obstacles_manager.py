@@ -16,16 +16,7 @@ class ObstacleManager:
 
     def update(self, game):
         if len(self.obstacles) == 0:
-            self.options_obstacles = random.randint(0,2)        ###IMPLEMENTACION
-            if self.options_obstacles == 0:
-                hazar_cactus = "SMALL"
-                self.obstacles.append(Cactus(hazar_cactus))
-            elif self.options_obstacles == 1:
-                hazar_cactus = "LARGE"
-                self.obstacles.append(Cactus(hazar_cactus))
-            elif self.options_obstacles == 2:
-                self.obstacles.append(BirdFly(BIRD))
-
+            self.inventory_obstacle()
           ########
 
         for obstacle in self.obstacles:
@@ -49,7 +40,7 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.update(game.game_speed, self.obstacles)
             if game.player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(300)
+                #pygame.time.delay(300)
                 self.obstacles.remove(obstacle)
 
 
